@@ -1,0 +1,84 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/react-spa/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/react-spa",
+        "index": "apps/react-spa/src/index.html",
+        "baseHref": "/",
+        "main": "apps/react-spa/src/main.tsx",
+        "polyfills": "apps/react-spa/src/polyfills.ts",
+        "tsConfig": "apps/react-spa/tsconfig.app.json",
+        "assets": [
+          "apps/react-spa/src/favicon.ico",
+          "apps/react-spa/src/assets"
+        ],
+        "styles": ["apps/react-spa/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/react-spa/src/environments/environment.ts",
+              "with": "apps/react-spa/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "_options": "{ dev: boolean, port: number, proxyConfig: 'apps/APP_NAME/proxy.conf.json' }",
+        "buildTarget": "react-spa:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "react-spa:build:development"
+        },
+        "production": {
+          "buildTarget": "react-spa:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/react-spa/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/react-spa"],
+      "options": {
+        "jestConfig": "apps/react-spa/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

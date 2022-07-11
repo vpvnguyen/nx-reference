@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "express": "apps/express",
+    "react-spa": "apps/react-spa",
+    "react-spa-e2e": "apps/react-spa-e2e"
+  }
+}
